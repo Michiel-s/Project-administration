@@ -38,8 +38,10 @@ CONTEXT ProjectAdministration IN ENGLISH
   
   RULE "Active projects must have a projectleader" : projectActive |- I /\ pl;pl~
   
-  --ROLE "Planner" MAINTAINS "Every projectleader is also projectmember"
-  --RULE "Every projectleader is also projectmember" : pl |- member
+  ROLE "ExecEngine" MAINTAINS "Every projectleader is also projectmember"
+  RULE "Every projectleader is also projectmember" : pl |- member
+  VIOLATION (TXT "{php}'")
+  
 
 --[ Public interfaces ]--------------------------------------------------------
   INTERFACE "Active projects" : V[SESSION*Project];projectActive COLS
@@ -52,7 +54,7 @@ CONTEXT ProjectAdministration IN ENGLISH
     , "Active"        : projectActive
     ]
   
-  INTERFACE "Project" : I[Project] ROWS
+  INTERFACE "Project" : I[Project] CRuD ROWS
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
@@ -64,7 +66,7 @@ CONTEXT ProjectAdministration IN ENGLISH
       ]
     ]
     
-  INTERFACE "Person"    : I[Person] cRUD ROWS
+  INTERFACE "Person"    : I[Person] CRUD ROWS
     [ "First name"      : personFirstName RU
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU
@@ -90,4 +92,5 @@ CONTEXT ProjectAdministration IN ENGLISH
   VIEW "Project name"  : Project(projectName)
   VIEW "Person name"     : Person(personFirstName, TXT " ", personLastName)
   VIEW "PersonEmail"    : Person { email : personEmail } HTML TEMPLATE "PersonEmail.html" ENDVIEW
+  
 ENDCONTEXT
