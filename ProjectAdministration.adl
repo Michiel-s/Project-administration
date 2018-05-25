@@ -40,7 +40,7 @@ CONTEXT ProjectAdministration IN ENGLISH
   
   ROLE "ExecEngine" MAINTAINS "Every projectleader is also projectmember"
   RULE "Every projectleader is also projectmember" : pl |- member
-  VIOLATION (TXT "{php}'")
+  VIOLATION (TXT "{EX}InsPair;member;Project;", SRC I, TXT ";Person;", TGT I)
   
 
 --[ Public interfaces ]--------------------------------------------------------
