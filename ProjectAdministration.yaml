@@ -15,7 +15,7 @@ switches:
   # - validate
 
   ### generate a functional prototype (This overrules environment variable CCdirPrototype).:
-  # - proto[=DIRECTORY]
+  - proto=c:\dev\xampp\htdocs\project
 
   ### copy a directory into the generated prototype, instead of the default.:
   - customizations=customizations
