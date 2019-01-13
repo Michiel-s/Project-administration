@@ -5,7 +5,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
 
 --[ Conceptual model (including concepts and relations) ]----------------------
   CONCEPT Project "Planned set of interrelated tasks"
-    projectName           :: Project * ProjectName [UNI]
+    projectName           :: Project * ProjectName [UNI,TOT]
     projectStatus         :: Project * ProjectStatus [UNI]
     projectDescription    :: Project * Description [UNI]
     projectStartDate      :: Project * Date [UNI]
