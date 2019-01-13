@@ -66,7 +66,7 @@ CONTEXT ProjectAdministration IN ENGLISH
       ]
     ]
     
-  INTERFACE "Person"    : I[Person] CRUD ROWS
+  INTERFACE "Person"    : I[Person] CRuD ROWS
     [ "First name"      : personFirstName RU
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU

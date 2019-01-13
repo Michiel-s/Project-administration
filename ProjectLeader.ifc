@@ -6,7 +6,7 @@ CONTEXT ProjectAdministration IN ENGLISH
     , "Projects"            : pl~
     ]
     
-  INTERFACE "New/edit project" FOR "Projectleader" : I[Project] CRUD ROWS
+  INTERFACE "New/edit project" FOR "Projectleader" : I[Project] CRuD ROWS
     [ "Name"                : projectName RU
     , "Description"         : projectDescription RU
     , "Start date"          : projectStartDate RU
