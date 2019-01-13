@@ -1,14 +1,14 @@
-CONTEXT ProjectAdministration IN ENGLISH
+CONTEXT "ProjectAdministration" IN ENGLISH
   INCLUDE "ProjectAdministration.xlsx"
   
   INCLUDE "ProjectLeader.ifc"
 
 --[ Conceptual model (including concepts and relations) ]----------------------
   CONCEPT Project "Planned set of interrelated tasks"
-    projectName           :: Project * ProjectName [UNI]  
-    projectStatus         :: Project * ProjectStatus [UNI]  	
-    projectDescription    :: Project * Description [UNI] 
-    projectStartDate      :: Project * Date [UNI] 
+    projectName           :: Project * ProjectName [UNI]
+    projectStatus         :: Project * ProjectStatus [UNI]
+    projectDescription    :: Project * Description [UNI]
+    projectStartDate      :: Project * Date [UNI]
     projectActive         :: Project * Project [PROP]
     pl                    :: Project * Person [UNI]
     member                :: Project * Person
@@ -35,7 +35,6 @@ CONTEXT ProjectAdministration IN ENGLISH
             )
   ROLE "Planner" MAINTAINS "r1"
 
-  
   RULE "Active projects must have a projectleader" : projectActive |- I /\ pl;pl~
   
   ROLE "ExecEngine" MAINTAINS "Every projectleader is also projectmember"
@@ -48,7 +47,7 @@ CONTEXT ProjectAdministration IN ENGLISH
     [ "Projects"      : I[Project]
     , "Name"          : projectName
     , "Description"   : projectDescription
-    , "Projectleider" : pl                   
+    , "Projectleider" : pl
     , "@"             : pl[Project*Person] <PersonEmail>
     , "Start"         : projectStartDate
     , "Active"        : projectActive
