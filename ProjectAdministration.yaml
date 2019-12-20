@@ -15,7 +15,7 @@ switches:
   # - validate
 
   ### generate a functional prototype (This overrules environment variable CCdirPrototype).:
-  - proto=c:\dev\xampp\htdocs\project
+  # - proto=c:\dev\htdocs\project
 
   ### tag, branch or SHA of the prototype framework on Github.:
   # - prototype-framework-version=development
