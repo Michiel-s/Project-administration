@@ -7,8 +7,15 @@ ARG DB_HOST=db
 ARG SCRIPT=script.adl
 
 # Generate prototype application from folder
-RUN ampersand /usr/local/project/${SCRIPT} --proto=/var/www --sqlHost=${DB_HOST} --verbose --skip-composer \
-  && chown -R www-data:www-data /var/www \
+RUN ampersand proto /usr/local/project/${SCRIPT} \
+  --output-directory /var/www \
+  --sqlHost ${DB_HOST} \
+  --skip-composer \
+  --crud-defaults cRud \
+  --customizations customizations \
+  --verbose
+
+RUN chown -R www-data:www-data /var/www/data /var/www/log /var/www/generics \
   && cd /var/www \
   # && composer install --prefer-dist --no-dev --profile \
   # && npm install \
