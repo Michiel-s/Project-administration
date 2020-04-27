@@ -1,16 +1,10 @@
-ARG PROTOTYPE_IMAGE_VERSION=latest
-FROM docker.pkg.github.com/ampersandtarski/prototype/prototype-framework:${PROTOTYPE_IMAGE_VERSION}
+FROM docker.pkg.github.com/ampersandtarski/prototype/prototype-framework:latest
 
-ADD . /usr/local/project
-
-ARG DB_HOST=db
-ARG SCRIPT=script.adl
+COPY . /usr/local/project
 
 # Generate prototype application from folder
-RUN ampersand proto /usr/local/project/${SCRIPT} \
-  --output-directory /var/www \
-  --sqlHost ${DB_HOST} \
-  --skip-composer \
+RUN ampersand proto /usr/local/project/ProjectAdministration.adl \
+  --proto-dir /var/www \
   --crud-defaults cRud \
   --customizations customizations \
   --verbose

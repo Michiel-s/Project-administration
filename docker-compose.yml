@@ -11,12 +11,8 @@ services:
     container_name: prototype
     build:
       context: .
-      dockerfile: docker/prototype.Dockerfile
-      args:
-        - SCRIPT=ProjectAdministration.adl # entry script for Ampersand compiler
-        - DB_HOST=prototype-db # refers to service below
     environment:
-      - AMP_PROTO_ENV_NAME=default
+      - AMPERSAND_DBHOST=prototype-db # refers to database service below
     volumes:
       - ./:/usr/local/project
     restart: always
