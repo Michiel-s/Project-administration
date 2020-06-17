@@ -43,7 +43,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
 
 --[ Public interfaces ]--------------------------------------------------------
-  INTERFACE "Active projects" : V[SESSION*Project];projectActive COLS
+  INTERFACE "Active projects" : V[SESSION*Project];projectActive BOX <TABLE no-header title="List of active projects">
     [ "Projects"      : I[Project]
     , "Name"          : projectName
     , "Description"   : projectDescription
