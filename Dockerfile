@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/ampersandtarski/prototype/prototype-framework:latest
+FROM ampersandtarski/prototype-framework:development
 
 COPY . /usr/local/project
 
