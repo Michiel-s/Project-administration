@@ -6,8 +6,9 @@ COPY . /usr/local/project
 RUN ampersand proto /usr/local/project/ProjectAdministration.adl \
   --proto-dir /var/www \
   --crud-defaults cRud \
-  --customizations customizations \
   --verbose
+
+COPY customizations /var/www/
 
 RUN chown -R www-data:www-data /var/www/data /var/www/log /var/www/generics \
   && cd /var/www \
