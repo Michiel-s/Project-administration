@@ -43,7 +43,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
 
 --[ Public interfaces ]--------------------------------------------------------
-  INTERFACE "Active projects" : V[SESSION*Project];projectActive COLS
+  INTERFACE "Active projects" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
     [ "Projects"      : I[Project]
     , "Name"          : projectName
     , "Description"   : projectDescription
@@ -53,19 +53,19 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"        : projectActive
     ]
   
-  INTERFACE "Project" : I[Project] cRud ROWS
+  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" noLabels>
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
     , "Active"              : projectActive
     , "Current PL"          : pl
-    , "Project members"     : member ROWS
+    , "Project members"     : member BOX <TABLE title="Project members">
       [ "Name"              : personFirstName
       , "Email"             : personEmail
       ]
     ]
     
-  INTERFACE "Person"    : I[Person] CRuD ROWS
+  INTERFACE "Person"    : I[Person] CRuD BOX <TABS>
     [ "First name"      : personFirstName RU
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU
@@ -75,14 +75,14 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     ]
   
 --[ Interfaces for planner ]---------------------------------------------------
-  INTERFACE "Inactive projects" FOR "Planner" : V[SESSION*Project];(-(projectActive) /\ I) COLS
+  INTERFACE "Inactive projects" FOR "Planner" : V[SESSION*Project];(-(projectActive) /\ I) BOX <TABLE noHeader noTitle>
     [ "Name"            : I
     , "Description"     : projectDescription
     , "Projectleider"   : pl RU
     , "Active"          : projectActive RU
     ]
   
-  INTERFACE "People"  FOR "Planner" : V[SESSION*Person]   CRuD ROWS
+  INTERFACE "People"  FOR "Planner" : V[SESSION*Person]   CRuD BOX
     [ "Person"          : I[Person]
     , "Email"           : personEmail
     , "Projects"        : member~ 

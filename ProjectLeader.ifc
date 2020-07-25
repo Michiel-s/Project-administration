@@ -1,12 +1,12 @@
 CONTEXT ProjectAdministration IN ENGLISH
 
 --[ Interfaces for project leader ]--------------------------------------------
-  INTERFACE "My projects" FOR "Projectleader" : V[SESSION*Project];pl COLS
+  INTERFACE "My projects" FOR "Projectleader" : V[SESSION*Project];pl BOX <TABLE>
     [ "Projectleader"       : I
     , "Projects"            : pl~
     ]
     
-  INTERFACE "New/edit project" FOR "Projectleader" : I[Project] CRuD ROWS
+  INTERFACE "New/edit project" FOR "Projectleader" : I[Project] CRuD BOX
     [ "Name"                : projectName RU
     , "Description"         : projectDescription RU
     , "Start date"          : projectStartDate RU
