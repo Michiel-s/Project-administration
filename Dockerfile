@@ -1,6 +1,7 @@
 FROM ampersandtarski/prototype-framework:development
 
-COPY . /usr/local/project
+COPY src /usr/local/project/
+COPY templates /usr/local/project/templates/
 
 # Generate prototype application from folder
 RUN ampersand proto /usr/local/project/ProjectAdministration.adl \
