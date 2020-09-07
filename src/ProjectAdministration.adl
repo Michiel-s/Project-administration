@@ -48,7 +48,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Name"          : projectName
     , "Description"   : projectDescription
     , "Projectleider" : pl
-    , "@"             : pl[Project*Person] <PersonEmail>
+    , "@"             : pl[Project*Person] <PersonEmail> -- uses default iconPath (see VIEW definition)
     , "Start"         : projectStartDate
     , "Active"        : projectActive
     ]
@@ -58,7 +58,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
     , "Active"              : projectActive
-    , "Current PL"          : pl
+    , "Current PL"          : pl <PersonEmail iconPath="adapted.png"> -- uses custom iconPath as defined here
     , "Project members"     : member BOX <TABLE title="Project members">
       [ "Name"              : personFirstName
       , "Email"             : personEmail
@@ -90,5 +90,13 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
   VIEW "ProjectName" : Project DEFAULT { name : projectName } ENDVIEW
   VIEW "PersonName"     : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
+
+  VIEW "PersonEmail"    : Person {
+    email : personEmail, test: TXT "asda" -- existing syntax!
+  } HTML TEMPLATE "PersonEmail.html" {
+    iconPath : "app/images/email.png", -- new! design time template attributes.
+    anotherAttribute: expr
+  } ENDVIEW
+
   
 ENDCONTEXT
