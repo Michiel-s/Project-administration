@@ -88,8 +88,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Projects"        : member~ 
     ]
   
-  VIEW "Project name"  : Project(projectName)
-  VIEW "Person name"     : Person(personFirstName, TXT " ", personLastName)
-  VIEW "PersonEmail"    : Person { email : personEmail } HTML TEMPLATE "PersonEmail.html" ENDVIEW
+  VIEW "ProjectName" : Project DEFAULT { name : projectName } ENDVIEW
+  VIEW "PersonName"     : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
   
 ENDCONTEXT
