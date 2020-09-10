@@ -1,0 +1,45 @@
+
+-- Example 1: all default templates
+INTERFACE "Interface name" : expr BOX -- default BOX <FORM> template
+    [ "label"       : expr -- default leaf template depending on TYPE of target
+    , "label2"      : expr
+    ]
+
+-- Example 2: specific leaf template
+INTERFACE "Interface name" : expr BOX
+    [ "label"       : expr <View1>
+    , "label2"      : expr
+    ]
+
+BOXDEF "View1" : Concept
+    [ "field" : expr
+    , "field2" : expr
+    ] HTML TEMPLATE "Table" ENDBOXDEF
+
+
+HTML TEMPLATE "Table" "Box-TABLE.html" <
+    attr1 = "hallo"
+    attr2 = "hoi"
+>
+
+-- Example 3: inline leaf template
+INTERFACE "Interface name" : expr BOX
+    [ "label"       : expr BOX <Box-TABLE.html attr1 = "hallo" attr2 = "hoi">
+        [ "field" : expr
+        , "field2" : expr BOX "View1"
+        ] 
+    , "label2"      : BOX <Box-TABLE.html> -- inline template
+        [ "field" : expr BOX "Boxref1" -- reference to boxdef
+        , "field2" : expr
+        ]
+    ]
+
+BOX "View1" : Concept
+    [ "label"       : expr
+    , "label2"      : expr
+    ] HTML TEMPLATE "View-MyView1.html < attr1 = "hallo" attr2 = "hoi" > ENDBOX
+
+BOX "Boxref1" : Concept
+    [ "label"       : expr
+    , "label2"      : expr
+    ] HTML TEMPLATE "Box-Table.html < attr1 = "hallo" attr2 = "hoi" > ENDBOX
