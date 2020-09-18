@@ -13,11 +13,14 @@
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},
-
+	// Add workspace folder to path, so we can mount a development ampersand compiler.
+	"remoteEnv": {
+		"PATH": "${containerWorkspaceFolder}:${containerEnv:PATH}"
+	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ampersandtarski.language-ampersand"
-	]
+	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
