@@ -37,7 +37,7 @@ INTERFACE "Interface name" : expr BOX
 BOX "View1" : Concept
     [ "label"       : expr
     , "label2"      : expr
-    ] HTML TEMPLATE "View-MyView1.html < attr1 = "hallo" attr2 = "hoi" > ENDBOX
+    ] HTML TEMPLATE "View-MyView1.html" < attr1 = "hallo" attr2 = "hoi" > ENDBOX
 
 BOX "Boxref1" : Concept
     [ "label"       : expr
