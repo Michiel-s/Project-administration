@@ -58,7 +58,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
     , "Active"              : projectActive
-    , "Current PL"          : pl <PersonEmail iconPath="adapted.png"> -- uses custom iconPath as defined here
+    , "Current PL"          : pl <PersonEmail>
     , "Project members"     : member BOX <TABLE title="Project members">
       [ "Name"              : personFirstName
       , "Email"             : personEmail
@@ -88,16 +88,25 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Projects"        : member~ 
     ]
   
-  VIEW "ProjectName" : Project DEFAULT { name : projectName } ENDVIEW
-  VIEW "PersonName"     : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
+  VIEW "ProjectName" : Project DEFAULT
+    [name : projectName]
+  ENDVIEW
+  VIEW "PersonName"  : Person DEFAULT
+    [ firstName : personFirstName
+    , txt1: HTML "<strong>Hallo</strong>"
+    , lastName : personLastName 
+    ]
+  ENDVIEW
 
-  VIEW "PersonEmail"    : Person [
-      email : personEmail, test: TXT "asda" -- existing syntax!
-    ] HTML TEMPLATE "PersonEmail.html" <
-      iconPath = "app/images/email.png" -- new! design time template attributes.
-    > ENDVIEW
+  VIEW "PersonEmail" : Person
+    [ email : personEmail
+    , test: TXT "asda" -- existing syntax!
+    ] HTML TEMPLATE "PersonEmail.html" 
+        < iconPath = "app/images/email.png" -- new! design time template attributes.
+        >
+  ENDVIEW
 
-  VIEW "PersonEmail2" : Person {} HTML TEMPLATE "<div class=\"\" ></div>"
-
+  VIEW "PersonEmail2" : Person [] HTML "<div class=\"\" ></div>"
+  ENDVIEW
   
 ENDCONTEXT
