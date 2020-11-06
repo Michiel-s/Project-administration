@@ -48,12 +48,12 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Name"          : projectName
     , "Description"   : projectDescription
     , "Projectleider" : pl
-    , "@"             : pl[Project*Person] <PersonEmail>
+    , "@"             : pl[Project*Person]
     , "Start"         : projectStartDate
     , "Active"        : projectActive
     ]
   
-  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" noLabels>
+  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form">
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
@@ -75,7 +75,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     ]
   
 --[ Interfaces for planner ]---------------------------------------------------
-  INTERFACE "Inactive projects" FOR "Planner" : V[SESSION*Project];(-(projectActive) /\ I) BOX <TABLE noHeader noTitle>
+  INTERFACE "Inactive projects" FOR "Planner" : V[SESSION*Project];(-(projectActive) /\ I) BOX <TABLE noHeader noRootTitle>
     [ "Name"            : I
     , "Description"     : projectDescription
     , "Projectleider"   : pl RU
