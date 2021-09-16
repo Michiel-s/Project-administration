@@ -1,4 +1,4 @@
-FROM ampersandtarski/prototype-framework:development
+FROM ampersandtarski/prototype-framework:v1
 
 COPY src /usr/local/project/
 COPY templates /usr/local/project/templates/
