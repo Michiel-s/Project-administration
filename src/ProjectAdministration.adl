@@ -53,7 +53,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"        : projectActive
     ]
   
-  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form">
+  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
