@@ -6,7 +6,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
 --[ Conceptual model (including concepts and relations) ]----------------------
   CONCEPT Project "Planned set of interrelated tasks"
     projectName           :: Project * ProjectName [UNI,TOT]
-    projectStatus         :: Project * ProjectStatus [UNI]
+    projectStatus         :: Project * ProjectStatus [UNI,TOT] DEFAULT TGT VALUE "In preparation"
     projectDescription    :: Project * Description [UNI]
     projectStartDate      :: Project * Date [UNI]
     projectActive         :: Project * Project [PROP]
@@ -50,6 +50,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Projectleider" : pl
     , "@"             : pl[Project*Person]
     , "Start"         : projectStartDate
+    , "Status"        : projectStatus
     , "Active"        : projectActive
     ]
   
@@ -57,6 +58,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
+    , "Status"              : projectStatus
     , "Active"              : projectActive
     , "Current PL"          : pl
     , "Project members"     : member BOX <TABLE title="Project members">
@@ -79,6 +81,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     [ "Name"            : I
     , "Description"     : projectDescription
     , "Projectleider"   : pl RU
+    , "Status"          : projectStatus
     , "Active"          : projectActive RU
     ]
   
