@@ -16,6 +16,10 @@ services:
       - AMPERSAND_LOG_CONFIG=logging.debug.yaml
       - AMPERSAND_PRODUCTION_MODE=false
       - AMPERSAND_DEBUG_MODE=true
+      - AMPERSAND_SERVER_URL=${SERVER_HOST_NAME} # from .env file
+      - AMPERSAND_DBUSER=${MYSQL_USER} # from .env file
+      - AMPERSAND_DBPASS=${MYSQL_PASSWORD} # from .env file
+      - AMPERSAND_DBNAME=${DATABASE_NAME:?} # from .env file
     volumes:
       - ./:/usr/local/project
     restart: always
@@ -32,9 +36,10 @@ services:
     command: ["--sql-mode=ANSI,TRADITIONAL"]
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD= # empty root password
-      - MYSQL_USER=ampersand
-      - MYSQL_PASSWORD=ampersand
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} # from .env file
+      - MYSQL_USER=${MYSQL_USER} # from .env file
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD} # from .env file
+      - MYSQL_DATABASE=${DATABASE_NAME} # from .env file
     volumes:
       - db-data:/var/lib/mysql
     networks:
