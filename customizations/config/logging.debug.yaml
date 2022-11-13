@@ -1,0 +1,45 @@
+loggers:
+  EXECENGINE:
+    handlers: [stdout, stderr]
+  IO:
+    handlers: [stdout, stderr]
+  API:
+    handlers: [stdout, stderr]
+  APPLICATION:
+    handlers: [stdout, stderr]
+  DATABASE:
+    handlers: [stdout, stderr]
+  CORE:
+    handlers: [stdout, stderr]
+  RULEENGINE:
+    handlers: [stdout, stderr]
+  TRANSACTION:
+    handlers: [stdout, stderr]
+  INTERFACING:
+    handlers: [stdout, stderr]
+formatters:
+  line_formatter:
+    class: Monolog\Formatter\LineFormatter
+    allowInlineLineBreaks: true
+handlers:
+  stderr:
+    class: Monolog\Handler\StreamHandler
+    level: WARNING
+    processors: [request_id_processor]
+    stream: php://stderr
+    formatter: line_formatter
+  stdout:
+    class: Monolog\Handler\StreamHandler
+    level: DEBUG
+    processors: [request_id_processor]
+    stream: php://stdout
+processors:
+  web_processor:
+    class: Monolog\Processor\WebProcessor
+    serverData: null
+    extraFields:
+      ip: REMOTE_ADDR
+      method: REQUEST_METHOD
+      url: REQUEST_URI
+  request_id_processor:
+    class: Ampersand\Log\RequestIDProcessor

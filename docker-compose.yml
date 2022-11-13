@@ -13,6 +13,9 @@ services:
       context: .
     environment:
       - AMPERSAND_DBHOST=prototype-db # refers to database service below
+      - AMPERSAND_LOG_CONFIG=logging.debug.yaml
+      - AMPERSAND_PRODUCTION_MODE=false
+      - AMPERSAND_DEBUG_MODE=true
     volumes:
       - ./:/usr/local/project
     restart: always
