@@ -67,7 +67,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
       ]
     ]
     
-  INTERFACE "Person"    : I[Person] CRuD BOX <TABS>
+  INTERFACE "Person"    : I[Person] CRuD BOX <FORM>
     [ "First name"      : personFirstName RU
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU
