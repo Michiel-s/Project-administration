@@ -11,8 +11,8 @@ RUN ampersand proto /usr/local/project/ProjectAdministration.adl \
 
 COPY customizations /var/www/
 
-RUN chown -R www-data:www-data /var/www/data /var/www/log /var/www/generics \
-  && cd /var/www \
+RUN chown -R www-data:www-data /var/www/data
+  # && cd /var/www \
   # && composer install --prefer-dist --no-dev --profile \
   # && npm install \
   # && gulp build-ampersand \
