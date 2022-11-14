@@ -72,7 +72,10 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU
     , "Email"           : personEmail RU
-    , "Projects"        : (member~ \/ pl~);projectActive 
+    , "Projects"        : I BOX <TABS>
+      [ "Active"        : (member~ \/ pl~);projectActive
+      , "Inactive"      : (member~ \/ pl~);(-projectActive)
+      ]
     , "Works with"      : workswith
     ]
   
