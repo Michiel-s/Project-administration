@@ -10,6 +10,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     projectDescription    :: Project * Description [UNI]
     projectStartDate      :: Project * Date [UNI]
     projectActive         :: Project * Project [PROP]
+    projectKeyword        :: Project * Keyword
     pl                    :: Project * Person [UNI]
     member                :: Project * Person
   
@@ -21,7 +22,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     workswith             :: Person * Person [IRF,SYM]
   
   REPRESENT Date TYPE DATE
-  REPRESENT ProjectName, ProjectStatus TYPE ALPHANUMERIC
+  REPRESENT ProjectName, ProjectStatus, Keyword TYPE ALPHANUMERIC
   REPRESENT FirstName, LastName, PersonStatus, Email TYPE ALPHANUMERIC
   REPRESENT Description TYPE BIGALPHANUMERIC
 
