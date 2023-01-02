@@ -16,7 +16,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   CONCEPT Person "Person"
     personFirstName       :: Person * FirstName [UNI]
     personLastName        :: Person * LastName [UNI]
-    personStatus          :: Person * PersonStatus [UNI]
+    personStatus          :: Person * PersonStatus [UNI] DEFAULT TGT VALUE "Test"
     personEmail           :: Person * Email [UNI]
     workswith             :: Person * Person [IRF,SYM]
   
