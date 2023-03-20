@@ -13,7 +13,29 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     projectKeyword        :: Project * Keyword
     pl                    :: Project * Person [UNI]
     member                :: Project * Person
-  
+
+    someAlphanumeric      :: Project * SomeAlphanumeric [UNI]
+    someBigalphanumeric   :: Project * SomeBigalphanumeric [UNI]
+    someHugeAlphanumeric  :: Project * SomeHugeAlphanumeric [UNI]
+    somePassword          :: Project * SomePassword [UNI]
+    someDate              :: Project * SomeDate [UNI]
+    someDateTime          :: Project * SomeDateTime [UNI]
+    someBoolean           :: Project * SomeBoolean [UNI]
+    someInteger           :: Project * SomeInteger [UNI]
+    someFloat             :: Project * SomeFloat [UNI]
+    someObject            :: Project * Person [UNI]
+
+    someAlphanumericX      :: Project * SomeAlphanumeric
+    someBigalphanumericX   :: Project * SomeBigalphanumeric
+    someHugeAlphanumericX  :: Project * SomeHugeAlphanumeric
+    somePasswordX          :: Project * SomePassword
+    someDateX              :: Project * SomeDate
+    someDateTimeX          :: Project * SomeDateTime
+    someBooleanX           :: Project * SomeBoolean
+    someIntegerX           :: Project * SomeInteger
+    someFloatX             :: Project * SomeFloat
+    someObjectX            :: Project * Person
+
   CONCEPT Person "Person"
     personFirstName       :: Person * FirstName [UNI]
     personLastName        :: Person * LastName [UNI]
@@ -24,7 +46,16 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   REPRESENT Date TYPE DATE
   REPRESENT ProjectName, ProjectStatus, Keyword TYPE ALPHANUMERIC
   REPRESENT FirstName, LastName, PersonStatus, Email TYPE ALPHANUMERIC
-  REPRESENT Description TYPE BIGALPHANUMERIC
+
+  REPRESENT SomeAlphanumeric, SomeAlphanumericX TYPE ALPHANUMERIC
+  REPRESENT SomeBigalphanumeric, SomeBigalphanumericX TYPE BIGALPHANUMERIC
+  REPRESENT SomeHugeAlphanumeric, SomeHugeAlphanumericX TYPE HUGEALPHANUMERIC
+  REPRESENT SomePassword, SomePasswordX TYPE PASSWORD
+  REPRESENT SomeDate, SomeDateX TYPE DATE
+  REPRESENT SomeDateTime, SomeDateTimeX TYPE DATETIME
+  REPRESENT SomeBoolean, SomeBooleanX TYPE BOOLEAN
+  REPRESENT SomeInteger, SomeIntegerX TYPE INTEGER
+  REPRESENT SomeFloat, SomeFloatX TYPE FLOAT
 
 --[ Invariant rules ]----------------------------------------------------------
   RULE "r1" : I[Project] |- projectName;projectName~
@@ -56,16 +87,39 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     ]
   
   INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
-    [ "Name"                : projectName
-    , "Description"         : projectDescription
-    , "(Planned) start date": projectStartDate
-    , "Status"              : projectStatus
-    , "Active"              : projectActive
-    , "Current PL"          : pl
-    , "Project members"     : member BOX <TABLE title="Project members">
-      [ "Name"              : personFirstName
-      , "Email"             : personEmail
+    [ "Name"                 : projectName
+    , "Description"           : projectDescription
+    , "(Planned) start date"  : projectStartDate
+    , "Status"                : projectStatus
+    , "Active"                : projectActive
+    , "Current PL"            : pl
+    , "Project members"       : member BOX <TABLE title="Project members">
+      [ "Name"                : personFirstName
+      , "Email"               : personEmail
       ]
+
+    , "Alphanumeric uni"      : someAlphanumeric
+    , "Bigalphanumeric uni"   : someBigalphanumeric
+    , "HugeAlphanumeric uni"  : someHugeAlphanumeric
+    , "Password uni"          : somePassword
+    , "Date uni"              : someDate
+    , "DateTime uni"          : someDateTime
+    , "Boolean uni"           : someBoolean
+    , "Integer uni"           : someInteger
+    , "Float uni"             : someFloat
+    , "Object uni"            : someObject
+
+    , "Alphanumeric"          : someAlphanumericX
+    , "Bigalphanumeric"       : someBigalphanumericX
+    , "HugeAlphanumeric"      : someHugeAlphanumericX
+    , "Password"              : somePasswordX
+    , "Date"                  : someDateX
+    , "DateTime"              : someDateTimeX
+    , "Boolean"               : someBooleanX
+    , "Integer"               : someIntegerX
+    , "Float"                 : someFloatX
+    , "Object"                : someObjectX
+
     ]
     
   INTERFACE "Person"    : I[Person] CRuD BOX <FORM>
@@ -89,7 +143,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"          : projectActive RU
     ]
   
-  INTERFACE "People"  FOR "Planner" : V[SESSION*Person]   CRuD BOX
+  INTERFACE "People"  FOR "Planner" : V[SESSION*Person]   CRUD BOX
     [ "Person"          : I[Person]
     , "Email"           : personEmail
     , "Projects"        : member~ 
