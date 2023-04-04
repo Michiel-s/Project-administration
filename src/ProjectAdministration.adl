@@ -75,7 +75,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
 
 --[ Public interfaces ]--------------------------------------------------------
-  INTERFACE "Active projects" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
+  INTERFACE "Active projects FORM" : V[SESSION*Project];projectActive BOX <FORM sortable sortBy="Name" order="desc">
     [ "Projects"      : I[Project]
     , "Name"          : projectName
     , "Description"   : projectDescription
@@ -86,6 +86,38 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"        : projectActive
     ]
   
+  INTERFACE "Active projects FORM CRUD" : V[SESSION*Project];projectActive CRUD BOX <FORM sortable sortBy="Name" order="desc">
+    [ "Projects"      : I[Project]
+    , "Name"          : projectName
+    , "Description"   : projectDescription
+    , "Projectleider" : pl
+    , "@"             : pl[Project*Person]
+    , "Start"         : projectStartDate
+    , "Status"        : projectStatus
+    , "Active"        : projectActive
+  ]
+
+  INTERFACE "Active projects TABLE" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
+    [ "Projects"      : I[Project]
+    , "Name"          : projectName
+    , "Description"   : projectDescription
+    , "Projectleider" : pl
+    , "@"             : pl[Project*Person]
+    , "Start"         : projectStartDate
+    , "Status"        : projectStatus
+    , "Active"        : projectActive
+  ]
+
+  INTERFACE "Active projects TABLE CRUD" : V[SESSION*Project];projectActive CRUD BOX <TABLE sortable sortBy="Name" order="desc">
+    [ "Projects"      : I[Project]
+    , "Name"          : projectName
+    , "Description"   : projectDescription
+    , "Projectleider" : pl
+    , "@"             : pl[Project*Person]
+    , "Start"         : projectStartDate
+    , "Status"        : projectStatus
+    , "Active"        : projectActive
+  ]
   INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
     [ "Name"                 : projectName
     , "Description"           : projectDescription
