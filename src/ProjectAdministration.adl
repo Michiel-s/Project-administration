@@ -75,49 +75,31 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
 
 --[ Public interfaces ]--------------------------------------------------------
-  INTERFACE "Active projects FORM" : V[SESSION*Project];projectActive BOX <FORM sortable sortBy="Name" order="desc">
+  INTERFACE "Active projects" : V[SESSION*Project];projectActive BOX <FORM>
     [ "Projects"      : I[Project]
-    , "Name"          : projectName
-    , "Description"   : projectDescription
-    , "Projectleider" : pl
-    , "@"             : pl[Project*Person]
-    , "Start"         : projectStartDate
-    , "Status"        : projectStatus
-    , "Active"        : projectActive
+    , "Members FORM"  : member CRUD BOX <FORM> -- <<-- this is the CRUD functionality we need for FORMS
+      [ "ID"          : I cRud <PersonNoView>
+      , "First name"  : personFirstName CRUD
+      , "Last name"   : personLastName CRUD
+      ]
+    , "Members TABLE" : member CRUD BOX <TABLE> -- <<-- this is the CRUD functionality we need for TABLES
+      [ "ID"          : I cRud <PersonNoView>
+      , "First name"  : personFirstName CRUD
+      , "Last name"   : personLastName CRUD
+      ]
+    , "Members TABS"  : member CRUD BOX <TABS> -- <<-- this is the CRUD functionality we need for TABS
+      [ "Person details" : I BOX <FORM>
+        [ "ID"         : I cRud <PersonNoView>
+        , "First name" : personFirstName CRUD
+        , "Last name"  : personLastName CRUD
+        ]
+      , "Contact details" : I BOX <FORM>
+        [ "ID"         : I cRud <PersonNoView>
+        , "Email"      : personEmail CRUD
+        ]
+      ]
     ]
   
-  INTERFACE "Active projects FORM CRUD" : V[SESSION*Project];projectActive CRUD BOX <FORM sortable sortBy="Name" order="desc">
-    [ "Projects"      : I[Project]
-    , "Name"          : projectName
-    , "Description"   : projectDescription
-    , "Projectleider" : pl
-    , "@"             : pl[Project*Person]
-    , "Start"         : projectStartDate
-    , "Status"        : projectStatus
-    , "Active"        : projectActive
-  ]
-
-  INTERFACE "Active projects TABLE" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
-    [ "Projects"      : I[Project]
-    , "Name"          : projectName
-    , "Description"   : projectDescription
-    , "Projectleider" : pl
-    , "@"             : pl[Project*Person]
-    , "Start"         : projectStartDate
-    , "Status"        : projectStatus
-    , "Active"        : projectActive
-  ]
-
-  INTERFACE "Active projects TABLE CRUD" : V[SESSION*Project];projectActive CRUD BOX <TABLE sortable sortBy="Name" order="desc">
-    [ "Projects"      : I[Project]
-    , "Name"          : projectName
-    , "Description"   : projectDescription
-    , "Projectleider" : pl
-    , "@"             : pl[Project*Person]
-    , "Start"         : projectStartDate
-    , "Status"        : projectStatus
-    , "Active"        : projectActive
-  ]
   INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
     [ "Name"                 : projectName
     , "Description"           : projectDescription
@@ -183,5 +165,6 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   
   VIEW "ProjectName" : Project DEFAULT { name : projectName } ENDVIEW
   VIEW "PersonName"     : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
+  VIEW "PersonNoView" : Person {} ENDVIEW
   
 ENDCONTEXT
