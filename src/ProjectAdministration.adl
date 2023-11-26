@@ -1,4 +1,4 @@
-CONTEXT "ProjectAdministration" IN ENGLISH
+CONTEXT ProjectAdministration LABEL "Project Administration" IN ENGLISH
   INCLUDE "ProjectAdministration.xlsx"
   
   INCLUDE "ProjectLeader.ifc"
@@ -27,24 +27,24 @@ CONTEXT "ProjectAdministration" IN ENGLISH
   REPRESENT Description TYPE BIGALPHANUMERIC
 
 --[ Invariant rules ]----------------------------------------------------------
-  RULE "r1" : I[Project] |- projectName;projectName~
+  RULE r1 : I[Project] |- projectName;projectName~
   MEANING "Every project MUST have a name"
   MESSAGE "There are projects that don't have a name"
   VIOLATION ( TXT "Project "
             , SRC I
             , TXT " does not have a name"
             )
-  ROLE "Planner" MAINTAINS "r1"
+  ROLE Planner MAINTAINS r1
 
-  RULE "Active projects must have a projectleader" : projectActive |- I /\ pl;pl~
+  RULE ActiveProjectsMustHaveAProjectleader LABEL "Active projects must have a projectleader" : projectActive |- I /\ pl;pl~
   
-  ROLE "ExecEngine" MAINTAINS "Every projectleader is also projectmember"
-  RULE "Every projectleader is also projectmember" : pl |- member
+  ROLE ExecEngine MAINTAINS EveryProjectleaderIsAlsoProjectmember
+  RULE EveryProjectleaderIsAlsoProjectmember LABEL "Every projectleader is also projectmember" : pl |- member
   VIOLATION (TXT "{EX}InsPair;member;Project;", SRC I, TXT ";Person;", TGT I)
   
 
 --[ Public interfaces ]--------------------------------------------------------
-  INTERFACE "Active projects" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
+  INTERFACE ActiveProjects LABEL "Active projects" : V[SESSION*Project];projectActive BOX <TABLE sortable sortBy="Name" order="desc">
     [ "Projects"      : I[Project]
     , "Name"          : projectName
     , "Description"   : projectDescription
@@ -55,7 +55,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"        : projectActive
     ]
   
-  INTERFACE "Project" : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
+  INTERFACE Project : I[Project] cRud BOX <FORM title="Project form" showNavMenu>
     [ "Name"                : projectName
     , "Description"         : projectDescription
     , "(Planned) start date": projectStartDate
@@ -68,7 +68,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
       ]
     ]
     
-  INTERFACE "Person"    : I[Person] CRuD BOX <FORM>
+  INTERFACE Person    : I[Person] CRuD BOX <FORM>
     [ "First name"      : personFirstName RU
     , "Last name"       : personLastName RU
     , "Status"          : personStatus RU
@@ -81,7 +81,7 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     ]
   
 --[ Interfaces for planner ]---------------------------------------------------
-  INTERFACE "Inactive projects" FOR "Planner" : V[SESSION*Project];(-(projectActive) /\ I) BOX <TABLE noHeader noRootTitle>
+  INTERFACE InactiveProjects LABEL "Inactive projects" FOR Planner : V[SESSION*Project];(-(projectActive) /\ I) BOX <TABLE noHeader noRootTitle>
     [ "Name"            : I
     , "Description"     : projectDescription
     , "Projectleider"   : pl RU
@@ -89,13 +89,13 @@ CONTEXT "ProjectAdministration" IN ENGLISH
     , "Active"          : projectActive RU
     ]
   
-  INTERFACE "People"  FOR "Planner" : V[SESSION*Person]   CRuD BOX
+  INTERFACE People  FOR Planner : V[SESSION*Person]   CRuD BOX
     [ "Person"          : I[Person]
     , "Email"           : personEmail
     , "Projects"        : member~ 
     ]
   
-  VIEW "ProjectName" : Project DEFAULT { name : projectName } ENDVIEW
-  VIEW "PersonName"     : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
+  VIEW ProjectName : Project DEFAULT { name : projectName } ENDVIEW
+  VIEW PersonName  : Person DEFAULT { firstName : personFirstName, txt1: TXT " ", lastName : personLastName } ENDVIEW
   
 ENDCONTEXT
