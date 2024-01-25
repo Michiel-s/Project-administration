@@ -2,7 +2,6 @@ CONTEXT ProjectAdministration LABEL "Project Administration" IN ENGLISH
   INCLUDE "ProjectAdministration.xlsx"
   
   INCLUDE "ProjectLeader.ifc"
-
 --[ Conceptual model (including concepts and relations) ]----------------------
   CONCEPT Project "Planned set of interrelated tasks"
     projectName           :: Project * ProjectName [UNI,TOT]
@@ -16,16 +15,29 @@ CONTEXT ProjectAdministration LABEL "Project Administration" IN ENGLISH
   
   CONCEPT Person "Person"
     personFirstName       :: Person * FirstName [UNI]
+    personFirstName       :: Person * FirstName [UNI]
     personLastName        :: Person * LastName [UNI]
     personStatus          :: Person * PersonStatus [UNI] DEFAULT TGT VALUE "Test"
     personEmail           :: Person * Email [UNI]
     workswith             :: Person * Person [IRF,SYM]
+  CONCEPT aap.Person "Person"
+    person :: aap.Person * Person [UNI]
+    person :: aap.Person * aap.Person [UNI]
+    aap.personFirstName       :: aap.Person * FirstName [UNI]
+    aap.personFirstName       :: aap.Person * FirstName [UNI]
+    aap.personLastName        :: aap.Person * LastName [UNI]
+    aap.personStatus          :: aap.Person * PersonStatus [UNI] DEFAULT TGT VALUE "Test"
+    aap.personEmail           :: aap.Person * Email [UNI]
+    aap.workswith             :: aap.Person * aap.Person [IRF,SYM]
   
   REPRESENT Date TYPE DATE
   REPRESENT ProjectName, ProjectStatus, Keyword TYPE ALPHANUMERIC
   REPRESENT FirstName, LastName, PersonStatus, Email TYPE ALPHANUMERIC
   REPRESENT Description TYPE BIGALPHANUMERIC
 
+
+POPULATION aap.FirstName CONTAINS [ "aap" ]
+RULE aapr1 : I[aap.Person] |- aap.personFirstName;aap.personFirstName~
 --[ Invariant rules ]----------------------------------------------------------
   RULE r1 : I[Project] |- projectName;projectName~
   MEANING "Every project MUST have a name"
